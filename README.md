@@ -1,5 +1,9 @@
 # 森林迷宮大冒險 🐿️ (Kids Maze Game)
 
+🚀 **本專案已自動部署至 GitHub Pages！**
+*   **遊戲網址**：[https://kuanfu256-bot.github.io/kids-maze-game/](https://kuanfu256-bot.github.io/kids-maze-game/)
+*   **儲存庫網址**：[https://github.com/kuanfu256-bot/kids-maze-game](https://github.com/kuanfu256-bot/kids-maze-game)
+
 這是一個特別為**國小學童**設計的網頁版迷宮遊戲。玩家將操控一隻可愛的小松鼠（🐿️），在森林迷宮中尋找美味的松果（🌰），並避開牆壁回到溫馨的樹屋（🏡）。
 
 本專案無須下載任何安裝檔，只要透過瀏覽器打開網頁即可即開即玩，支援電腦鍵盤以及平板/手機的觸控螢幕。
