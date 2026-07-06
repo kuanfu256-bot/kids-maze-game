@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>森林迷宮大冒險 🐿️ | 兒童趣味迷宮</title>
+  <!-- 載入適合兒童的圓潤字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <!-- 遊戲標題與設定 -->
+    <header class="game-header">
+      <h1 class="game-title">森林迷宮大冒險 🐿️</h1>
+      <p class="game-subtitle">幫小松鼠找到溫馨的樹屋吧！</p>
+      
+      <div class="control-panel">
+        <!-- 難度選擇 -->
+        <div class="select-group">
+          <label for="difficultySelect">選擇難度：</label>
+          <select id="difficultySelect">
+            <option value="easy">簡單 (小試身手 🌰)</option>
+            <option value="medium" selected>中等 (冒險高手 🌲)</option>
+            <option value="hard">困難 (終極挑戰 🏆)</option>
+          </select>
+        </div>
+
+        <!-- 功能按鈕 -->
+        <div class="button-group">
+          <button id="restartBtn" class="btn btn-secondary">重新開始 🔄</button>
+          <button id="muteBtn" class="btn btn-icon">音效：開 🔊</button>
+        </div>
+      </div>
+
+      <!-- 狀態欄：時間與計分 -->
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="icon">⏱️</span> 時間：<span id="timerVal">0</span> 秒
+        </div>
+        <div class="status-item">
+          <span class="icon">🌰</span> 已收集：<span id="collectedAcorns">0</span> / <span id="totalAcorns">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 遊戲畫布區 -->
+    <main class="game-main">
+      <div class="canvas-container">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+      </div>
+    </main>
+
+    <!-- 行動裝置虛擬按鍵 -->
+    <footer class="game-footer">
+      <div class="virtual-dpad" id="virtualDpad">
+        <button id="btnUp" class="dpad-btn dpad-up" aria-label="向上">▲</button>
+        <div class="dpad-middle">
+          <button id="btnLeft" class="dpad-btn dpad-left" aria-label="向左">◀</button>
+          <div class="dpad-center-spacer"></div>
+          <button id="btnRight" class="dpad-btn dpad-right" aria-label="向右">▶</button>
+        </div>
+        <button id="btnDown" class="dpad-btn dpad-down" aria-label="向下">▼</button>
+      </div>
+      <p class="control-hint">電腦版可使用鍵盤方向鍵或 WASD 移動喔！</p>
+    </footer>
+  </div>
+
+  <!-- 勝利彈出視窗 (Modal) -->
+  <div id="winModal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">🎉 太棒了！順利抵達樹屋！</h2>
+      <div class="star-rating" id="starRating">
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+      </div>
+      <p class="win-stats">
+        你在 <span id="winTime" class="highlight">0</span> 秒內完成了挑戰！<br>
+        並且收集了所有的美味松果！
+      </p>
+      <div class="modal-buttons">
+        <button id="playAgainBtn" class="btn btn-primary">再玩一局 🐿️</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
