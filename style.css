@@ -1,408 +1,566 @@
-/* 全局樣式重設與字型 */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ==============================================
+   RESET & ROOT
+   ============================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ==============================================
+   THEME CUSTOM PROPERTIES
+   ============================================== */
+:root {
+  --wall:          #15803d;
+  --wall-bg:       #052e16;
+  --canvas-bg:     #fef9c3;
+  --path:          #dcfce7;
+  --path-visited:  #bbf7d0;
+  --border:        #bbf7d0;
+  --canvas-border: #fcd34d;
+  --body-bg:       linear-gradient(135deg,#dcfce7 0%,#f0fdf4 55%,#e0f2fe 100%);
+  --container-bg:  rgba(255,255,255,0.88);
+  --text-primary:  #14532d;
+  --text-secondary:#4b5563;
+  --panel-bg:      rgba(240,253,244,0.9);
+  --panel-border:  #86efac;
+  --status-bg:     #f0fdf4;
+  --status-border: #86efac;
+  --badge-bg:      #fcd34d;
+  --badge-color:   #78350f;
+  --dpad-bg:       #3b82f6;
+  --dpad-shadow:   #1d4ed8;
 }
 
+body.theme-ice {
+  --wall:          #1d4ed8;
+  --wall-bg:       #172554;
+  --canvas-bg:     #f0f9ff;
+  --path:          #eff6ff;
+  --path-visited:  #bae6fd;
+  --border:        #93c5fd;
+  --canvas-border: #38bdf8;
+  --body-bg:       linear-gradient(135deg,#e0f2fe 0%,#f0f9ff 55%,#dbeafe 100%);
+  --container-bg:  rgba(240,249,255,0.92);
+  --text-primary:  #1e3a8a;
+  --text-secondary:#475569;
+  --panel-bg:      rgba(239,246,255,0.9);
+  --panel-border:  #93c5fd;
+  --status-bg:     #eff6ff;
+  --status-border: #93c5fd;
+  --badge-bg:      #38bdf8;
+  --badge-color:   #082f49;
+}
+
+body.theme-fire {
+  --wall:          #c2410c;
+  --wall-bg:       #431407;
+  --canvas-bg:     #fff7ed;
+  --path:          #fefce8;
+  --path-visited:  #fed7aa;
+  --border:        #fdba74;
+  --canvas-border: #f97316;
+  --body-bg:       linear-gradient(135deg,#fff7ed 0%,#fef3c7 55%,#fee2e2 100%);
+  --container-bg:  rgba(255,247,237,0.92);
+  --text-primary:  #7c2d12;
+  --text-secondary:#78350f;
+  --panel-bg:      rgba(255,247,237,0.9);
+  --panel-border:  #fdba74;
+  --status-bg:     #fff7ed;
+  --status-border: #fb923c;
+  --badge-bg:      #f97316;
+  --badge-color:   #fff;
+}
+
+body.theme-ocean {
+  --wall:          #0e7490;
+  --wall-bg:       #083344;
+  --canvas-bg:     #ecfeff;
+  --path:          #f0fdff;
+  --path-visited:  #a5f3fc;
+  --border:        #67e8f9;
+  --canvas-border: #06b6d4;
+  --body-bg:       linear-gradient(135deg,#ecfeff 0%,#e0f2fe 55%,#d1fae5 100%);
+  --container-bg:  rgba(236,254,255,0.92);
+  --text-primary:  #164e63;
+  --text-secondary:#155e75;
+  --panel-bg:      rgba(236,254,255,0.9);
+  --panel-border:  #67e8f9;
+  --status-bg:     #ecfeff;
+  --status-border: #22d3ee;
+  --badge-bg:      #06b6d4;
+  --badge-color:   #fff;
+}
+
+body.theme-space {
+  --wall:          #7c3aed;
+  --wall-bg:       #09090b;
+  --canvas-bg:     #09090b;
+  --path:          #1e1b4b;
+  --path-visited:  #312e81;
+  --border:        #4f46e5;
+  --canvas-border: #818cf8;
+  --body-bg:       linear-gradient(135deg,#09090b 0%,#1e1b4b 50%,#09090b 100%);
+  --container-bg:  rgba(15,15,30,0.95);
+  --text-primary:  #e0e7ff;
+  --text-secondary:#a5b4fc;
+  --panel-bg:      rgba(49,46,129,0.35);
+  --panel-border:  #4f46e5;
+  --status-bg:     rgba(30,27,75,0.6);
+  --status-border: #6d28d9;
+  --badge-bg:      #7c3aed;
+  --badge-color:   #e0e7ff;
+}
+
+/* ==============================================
+   GLOBAL
+   ============================================== */
 body {
   font-family: 'Fredoka', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
-  background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #e0f2fe 100%);
+  background: var(--body-bg);
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: #1e3a8a;
-  overflow-x: hidden;
-  padding: 10px;
+  align-items: flex-start;
+  padding: 8px 8px 24px;
+  transition: background 0.6s ease;
+  color: var(--text-primary);
 }
 
-/* 遊戲外層容器 */
+/* ==============================================
+   GAME CONTAINER
+   ============================================== */
 .game-container {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 4px solid #bbf7d0;
+  background: var(--container-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 3px solid var(--border);
   border-radius: 28px;
   width: 100%;
   max-width: 520px;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.12), 
-              0 8px 16px rgba(0, 0, 0, 0.04);
+  padding: 14px 16px 18px;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 
-/* 標頭樣式 */
+/* ==============================================
+   LEVEL PROGRESS DOTS
+   ============================================== */
+.level-progress-bar {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.level-dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.level-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(209,213,219,0.5);
+  border: 2px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.level-dot.completed {
+  background: #22c55e;
+  border-color: #16a34a;
+  color: white;
+  cursor: pointer;
+}
+.level-dot.completed:hover { background: #4ade80; transform: scale(1.1); }
+
+.level-dot.current {
+  background: var(--badge-bg);
+  border-color: var(--badge-bg);
+  color: var(--badge-color);
+  transform: scale(1.15);
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+.level-dot.available {
+  background: rgba(255,255,255,0.7);
+  border-color: var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.level-dot.available:hover { transform: scale(1.1); }
+
+.level-dot.locked { opacity: 0.4; }
+
+@keyframes pulseDot {
+  0%,100% { box-shadow: 0 0 0 0 rgba(251,191,36,0.5); }
+  50%      { box-shadow: 0 0 0 7px rgba(251,191,36,0); }
+}
+
+/* ==============================================
+   GAME HEADER
+   ============================================== */
 .game-header {
   width: 100%;
-  margin-bottom: 16px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .game-title {
-  font-size: 2.2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #16a34a;
-  text-shadow: 2px 2px 0px #dcfce7, 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin-bottom: 4px;
-  letter-spacing: 1px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  transition: color 0.5s;
 }
 
-.game-subtitle {
-  font-size: 1.05rem;
-  color: #4b5563;
-  margin-bottom: 16px;
+.level-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.level-badge {
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 3px 12px;
+  border-radius: 20px;
+  transition: background 0.5s;
+}
+
+.level-name {
   font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
-/* 控制面板 */
+.shape-badge {
+  background: var(--status-bg);
+  border: 1.5px solid var(--status-border);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+/* ==============================================
+   CONTROL PANEL
+   ============================================== */
 .control-panel {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 6px;
   width: 100%;
-  background: #f0fdf4;
-  padding: 12px 16px;
-  border-radius: 16px;
-  border: 2px dashed #86efac;
-  margin-bottom: 16px;
-  gap: 10px;
-}
-
-.select-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #166534;
-}
-
-select {
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 10px;
-  border: 2px solid #86efac;
-  background-color: white;
-  color: #166534;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.2s;
-}
-
-select:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
-}
-
-.button-group {
-  display: flex;
-  gap: 8px;
-}
-
-/* 按鈕樣式 */
-.btn {
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  position: relative;
-  outline: none;
-}
-
-.btn-primary {
-  background-color: #22c55e;
-  color: white;
-  box-shadow: 0 4px 0 #16a34a, 0 6px 10px rgba(22, 163, 74, 0.2);
-}
-
-.btn-primary:hover {
-  background-color: #4ade80;
-}
-
-.btn-primary:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 #16a34a;
-}
-
-.btn-secondary {
-  background-color: #3b82f6;
-  color: white;
-  box-shadow: 0 4px 0 #2563eb, 0 6px 10px rgba(59, 130, 246, 0.2);
-}
-
-.btn-secondary:hover {
-  background-color: #60a5fa;
-}
-
-.btn-secondary:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 #2563eb;
-}
-
-.btn-icon {
-  background-color: #f3f4f6;
-  color: #374151;
-  border: 2px solid #e5e7eb;
-  padding: 6px 12px;
-  box-shadow: 0 3px 0 #d1d5db;
-}
-
-.btn-icon:hover {
-  background-color: #e5e7eb;
-}
-
-.btn-icon:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 #d1d5db;
-}
-
-/* 狀態欄 */
-.status-bar {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #1e3a8a;
+  background: var(--panel-bg);
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 2px dashed var(--panel-border);
+  margin-bottom: 8px;
+  transition: background 0.5s, border-color 0.5s;
 }
 
 .status-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: #eff6ff;
-  padding: 8px 16px;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--status-bg);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--status-border);
+  transition: background 0.5s, border-color 0.5s;
+}
+
+.button-group { display: flex; gap: 6px; }
+
+/* ==============================================
+   BUTTONS
+   ============================================== */
+.btn {
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 7px 14px;
+  border: none;
   border-radius: 12px;
-  border: 2px solid #bfdbfe;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.icon {
-  font-size: 1.25rem;
+.btn-primary {
+  background: #22c55e;
+  color: white;
+  box-shadow: 0 4px 0 #15803d;
 }
+.btn-primary:hover  { background: #4ade80; }
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 1px 0 #15803d; }
 
-/* 遊戲主畫布區域 */
+.btn-secondary {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 0 #1d4ed8;
+}
+.btn-secondary:hover  { background: #60a5fa; }
+.btn-secondary:active { transform: translateY(3px); box-shadow: 0 1px 0 #1d4ed8; }
+
+.btn-icon {
+  background: var(--status-bg);
+  color: var(--text-primary);
+  border: 2px solid var(--status-border);
+  padding: 5px 10px;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+}
+.btn-icon:active { transform: translateY(2px); }
+
+/* ==============================================
+   CANVAS
+   ============================================== */
 .game-main {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
 .canvas-container {
-  background: #ffffff;
-  border: 6px solid #fcd34d;
-  border-radius: 20px;
-  box-shadow: inset 0 4px 10px rgba(0,0,0,0.06), 0 8px 16px rgba(252, 211, 77, 0.25);
+  background: var(--canvas-bg);
+  border: 5px solid var(--canvas-border);
+  border-radius: 18px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1), inset 0 2px 6px rgba(0,0,0,0.04);
+  transition: border-color 0.5s, background 0.5s;
 }
 
 canvas {
   display: block;
   max-width: 100%;
   height: auto;
-  cursor: crosshair;
-  background-color: #fef08a; /* 迷宮背景色 */
 }
 
-/* 遊戲頁尾與虛擬搖桿 */
+/* ==============================================
+   PORTAL HINT
+   ============================================== */
+.portal-hint {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #7c3aed;
+  background: #ede9fe;
+  border: 1.5px solid #c4b5fd;
+  padding: 5px 14px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  animation: fadeSlide 0.4s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================================
+   D-PAD
+   ============================================== */
 .game-footer {
   width: 100%;
-  margin-top: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .virtual-dpad {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  background: #f1f5f9;
-  padding: 12px;
-  border-radius: 50%;
-  border: 4px solid #cbd5e1;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-  width: 150px;
-  height: 150px;
-  justify-content: center;
-}
-
-.dpad-btn {
-  font-family: inherit;
-  font-size: 1.2rem;
-  font-weight: 700;
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 10px;
-  background: #3b82f6;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 0 #1d4ed8;
-  transition: transform 0.1s, box-shadow 0.1s;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.dpad-btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 #1d4ed8;
-  background: #2563eb;
+  gap: 3px;
 }
 
 .dpad-middle {
   display: flex;
   align-items: center;
-  gap: 46px; /* 中間留空檔 */
-  position: relative;
+  gap: 3px;
 }
 
-.dpad-center-spacer {
-  width: 10px;
+.dpad-center {
+  width: 38px;
+  height: 38px;
+  background: rgba(203,213,225,0.3);
+  border-radius: 8px;
+}
+
+.dpad-btn {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: var(--dpad-bg);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 var(--dpad-shadow);
+  transition: transform 0.1s, box-shadow 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.dpad-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--dpad-shadow);
+  background: #2563eb;
 }
 
 .control-hint {
-  font-size: 0.85rem;
-  color: #6b7280;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
   font-weight: 600;
+  text-align: center;
 }
 
-/* 勝利彈出視窗 */
+/* ==============================================
+   MODALS
+   ============================================== */
 .modal {
-  display: none; /* 預設隱藏 */
+  display: none;
   position: fixed;
+  inset: 0;
   z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(15, 23, 42, 0.6);
+  background: rgba(10,10,20,0.65);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease-out;
 }
+.modal.show { display: flex; }
 
 .modal-content {
   background: white;
-  padding: 32px 24px;
+  padding: 28px 22px 22px;
   border-radius: 28px;
-  max-width: 400px;
-  width: 90%;
+  max-width: 380px;
+  width: 92%;
   text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  border: 6px solid #fbbf24;
-  transform: scale(0.8);
-  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  border: 5px solid #fbbf24;
+  animation: popIn 0.42s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.win-banner {
+  font-size: 3.8rem;
+  margin-bottom: 4px;
+  animation: bounceIn 0.6s ease-out both;
 }
 
 .modal-title {
   color: #d97706;
-  font-size: 1.6rem;
-  margin-bottom: 16px;
+  font-size: 1.55rem;
   font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.modal-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .star-rating {
-  font-size: 2.8rem;
-  margin: 12px 0;
+  font-size: 2.6rem;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.star {
-  color: #cbd5e1;
-  transition: color 0.3s ease;
-  animation: starRotate 0.5s ease-out;
-}
-
+.star { color: #e5e7eb; transition: color 0.3s, transform 0.4s; }
 .star.active {
   color: #fbbf24;
-  text-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+  transform: scale(1.2);
+  animation: starPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  text-shadow: 0 0 12px rgba(251,191,36,0.6);
 }
 
 .win-stats {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.05rem;
   color: #4b5563;
-  margin-bottom: 24px;
   font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.5;
 }
 
-.highlight {
-  color: #dc2626;
-  font-size: 1.4rem;
-  font-weight: 700;
+.win-tip {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 16px;
+  min-height: 18px;
 }
+
+.highlight { color: #dc2626; font-size: 1.4rem; font-weight: 700; }
 
 .modal-buttons {
   display: flex;
+  gap: 10px;
   justify-content: center;
+  flex-wrap: wrap;
 }
+.modal-buttons .btn { font-size: 1rem; padding: 10px 18px; }
 
-.modal-buttons .btn {
-  font-size: 1.1rem;
-  padding: 12px 28px;
-}
-
-/* 動畫定義 */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+/* ==============================================
+   ANIMATIONS
+   ============================================== */
 @keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
 }
 
-@keyframes starRotate {
-  0% { transform: scale(0.2) rotate(-45deg); opacity: 0; }
-  70% { transform: scale(1.2) rotate(10deg); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+@keyframes bounceIn {
+  0%   { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+  60%  { transform: scale(1.2) rotate(5deg); }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 
-/* 針對小螢幕進行簡單的響應式調整 */
+@keyframes starPop {
+  0%   { transform: scale(0.2) rotate(-30deg); opacity: 0; }
+  70%  { transform: scale(1.5) rotate(10deg); }
+  100% { transform: scale(1.2) rotate(0); opacity: 1; }
+}
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
 @media (max-width: 480px) {
-  .game-container {
-    padding: 16px;
-    border-radius: 20px;
-  }
-  .game-title {
-    font-size: 1.8rem;
-  }
-  .status-bar {
-    font-size: 1rem;
-  }
-  .virtual-dpad {
-    width: 130px;
-    height: 130px;
-  }
-  .dpad-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-  }
-  .dpad-middle {
-    gap: 36px;
-  }
+  .game-container { padding: 10px 12px 14px; border-radius: 20px; }
+  .game-title { font-size: 1.5rem; }
+  .dpad-btn { width: 42px; height: 42px; font-size: 1rem; }
+  .dpad-center { width: 32px; height: 32px; }
+  .status-item { font-size: 0.9rem; padding: 3px 8px; }
+  .level-dot { width: 27px; height: 27px; font-size: 0.65rem; }
 }

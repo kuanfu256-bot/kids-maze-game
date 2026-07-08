@@ -3,86 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>森林迷宮大冒險 🐿️ | 兒童趣味迷宮</title>
-  <!-- 載入適合兒童的圓潤字型 -->
+  <title>迷宮大冒險 🌟 | 兒童闖關迷宮</title>
+  <meta name="description" content="適合國小學生的趣味闖關迷宮遊戲，多種迷宮形狀、傳送門、多主題！">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="game-container">
-    <!-- 遊戲標題與設定 -->
+<body class="theme-forest">
+
+  <div class="game-container" id="gameContainer">
+
+    <!-- ▸ 關卡進度列 -->
+    <div class="level-progress-bar">
+      <div class="level-dots" id="levelDots"></div>
+    </div>
+
+    <!-- ▸ 標題與關卡資訊 -->
     <header class="game-header">
-      <h1 class="game-title">森林迷宮大冒險 🐿️</h1>
-      <p class="game-subtitle">幫小松鼠找到溫馨的樹屋吧！</p>
-      
-      <div class="control-panel">
-        <!-- 難度選擇 -->
-        <div class="select-group">
-          <label for="difficultySelect">選擇難度：</label>
-          <select id="difficultySelect">
-            <option value="easy">簡單 (小試身手 🌰)</option>
-            <option value="medium" selected>中等 (冒險高手 🌲)</option>
-            <option value="hard">困難 (終極挑戰 🏆)</option>
-          </select>
-        </div>
-
-        <!-- 功能按鈕 -->
-        <div class="button-group">
-          <button id="restartBtn" class="btn btn-secondary">重新開始 🔄</button>
-          <button id="muteBtn" class="btn btn-icon">音效：開 🔊</button>
-        </div>
-      </div>
-
-      <!-- 狀態欄：時間與計分 -->
-      <div class="status-bar">
-        <div class="status-item">
-          <span class="icon">⏱️</span> 時間：<span id="timerVal">0</span> 秒
-        </div>
-        <div class="status-item">
-          <span class="icon">🌰</span> 已收集：<span id="collectedAcorns">0</span> / <span id="totalAcorns">0</span>
-        </div>
+      <h1 class="game-title" id="gameTitle">🌲 森林冒險</h1>
+      <div class="level-info">
+        <span class="level-badge" id="levelBadge">第 1 關</span>
+        <span class="level-name" id="levelName">林間小徑</span>
+        <span class="shape-badge" id="shapeBadge">⬜ 方形</span>
       </div>
     </header>
 
-    <!-- 遊戲畫布區 -->
+    <!-- ▸ 狀態列 + 按鈕 -->
+    <div class="control-panel">
+      <div class="status-item" id="timerItem">
+        <span>⏱️</span><span id="timerVal">0</span> 秒
+      </div>
+      <div class="status-item">
+        <span id="collectIcon">🌰</span>
+        <span id="collectedAcorns">0</span>/<span id="totalAcorns">0</span>
+      </div>
+      <div class="status-item">
+        <span>🌟</span><span id="totalStarsDisplay">0</span>
+      </div>
+      <div class="button-group">
+        <button id="restartBtn" class="btn btn-secondary" title="重玩本關">🔄</button>
+        <button id="muteBtn" class="btn btn-icon" title="音效開關">🔊</button>
+      </div>
+    </div>
+
+    <!-- ▸ 遊戲畫布 -->
     <main class="game-main">
-      <div class="canvas-container">
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+      <div class="canvas-container" id="canvasContainer">
+        <canvas id="gameCanvas"></canvas>
       </div>
     </main>
 
-    <!-- 行動裝置虛擬按鍵 -->
+    <!-- ▸ 傳送門提示 (初次出現時顯示) -->
+    <div class="portal-hint" id="portalHint" style="display:none">
+      🌀 提示：踩上傳送門可以瞬間移動到另一個傳送門！
+    </div>
+
+    <!-- ▸ 虛擬搖桿 -->
     <footer class="game-footer">
       <div class="virtual-dpad" id="virtualDpad">
-        <button id="btnUp" class="dpad-btn dpad-up" aria-label="向上">▲</button>
+        <button id="btnUp"    class="dpad-btn" aria-label="向上">▲</button>
         <div class="dpad-middle">
-          <button id="btnLeft" class="dpad-btn dpad-left" aria-label="向左">◀</button>
-          <div class="dpad-center-spacer"></div>
-          <button id="btnRight" class="dpad-btn dpad-right" aria-label="向右">▶</button>
+          <button id="btnLeft"  class="dpad-btn" aria-label="向左">◀</button>
+          <div class="dpad-center"></div>
+          <button id="btnRight" class="dpad-btn" aria-label="向右">▶</button>
         </div>
-        <button id="btnDown" class="dpad-btn dpad-down" aria-label="向下">▼</button>
+        <button id="btnDown"  class="dpad-btn" aria-label="向下">▼</button>
       </div>
-      <p class="control-hint">電腦版可使用鍵盤方向鍵或 WASD 移動喔！</p>
+      <p class="control-hint">⌨️ 方向鍵 / WASD 移動 &nbsp;|&nbsp; 🌀 傳送門可瞬移！</p>
     </footer>
-  </div>
 
-  <!-- 勝利彈出視窗 (Modal) -->
-  <div id="winModal" class="modal">
-    <div class="modal-content">
-      <h2 class="modal-title">🎉 太棒了！順利抵達樹屋！</h2>
+  </div><!-- /game-container -->
+
+  <!-- ▸ 關卡完成 Modal -->
+  <div id="winModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content" id="modalContent">
+      <div class="win-banner" id="winBanner">🎉</div>
+      <h2 class="modal-title">
+        第 <span id="levelClearNum">1</span> 關完成！
+      </h2>
+      <p class="modal-subtitle" id="levelClearName">林間小徑</p>
       <div class="star-rating" id="starRating">
-        <span class="star">⭐</span>
-        <span class="star">⭐</span>
-        <span class="star">⭐</span>
+        <span class="star" data-idx="0">⭐</span>
+        <span class="star" data-idx="1">⭐</span>
+        <span class="star" data-idx="2">⭐</span>
       </div>
       <p class="win-stats">
-        你在 <span id="winTime" class="highlight">0</span> 秒內完成了挑戰！<br>
-        並且收集了所有的美味松果！
+        完成時間：<span id="winTime" class="highlight">0</span> 秒
+      </p>
+      <p class="win-tip" id="winTip"></p>
+      <div class="modal-buttons">
+        <button id="playAgainBtn" class="btn btn-secondary">🔄 重玩</button>
+        <button id="nextLevelBtn" class="btn btn-primary">下一關 ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 全部完成 Modal -->
+  <div id="allDoneModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="win-banner">👑</div>
+      <h2 class="modal-title" style="color:#d97706">迷宮大師！</h2>
+      <p class="win-stats">
+        你完成了所有 10 關！<br>
+        共獲得 <span class="highlight" id="finalStars">0</span> 顆星！
       </p>
       <div class="modal-buttons">
-        <button id="playAgainBtn" class="btn btn-primary">再玩一局 🐿️</button>
+        <button id="restartAllBtn" class="btn btn-primary">🔄 重新挑戰</button>
       </div>
     </div>
   </div>
